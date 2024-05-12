@@ -1,0 +1,20 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:parcel": "npx parcel index.html",
+    "start:db": "npx json-server -w db.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3"
+  }
+}
