@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "title": "Ironman1",
+    "director": "John Favreau",
+    "releaseYear": 2008,
+    "genre": "Sci-Fi",
+    "duration": 125
+  },
+  {
+    "id": 2,
+    "title": "아이언맨2",
+    "director": "존 파브로",
+    "releaseYear": 2010,
+    "genre": "Sci-Fi",
+    "duration": 125
+  },
+  {
+    "id": 3,
+    "title": "아이언맨 3",
+    "director": "셰인 블랙",
+    "releaseYear": 2013,
+    "genre": "Sci-Fi",
+    "duration": 129
+  },
+  {
+    "id": 4,
+    "title": "어벤져스",
+    "director": "조스 웨던",
+    "releaseYear": 2012,
+    "genre": "Action",
+    "duration": 142
+  },
+  {
+    "id": 5,
+    "title": "어벤져스: 에이지 오브 울트론",
+    "director": "조스 웨던",
+    "releaseYear": 2015,
+    "genre": "Action",
+    "duration": 141
+  },
+  {
+    "id": 6,
+    "title": "닥터 스트레인지",
+    "director": "스콧 데릭슨",
+    "releaseYear": 2016,
+    "genre": "Action",
+    "duration": 115
+  },
+  {
+    "id": 7,
+    "title": "아바타: 물의 길",
+    "director": "제임스 카메론",
+    "releaseYear": 2022,
+    "genre": "Sci-Fi",
+    "duration": 192
+  },
+  {
+    "id": 8,
+    "title": "아바타",
+    "director": "제임스 카메론",
+    "releaseYear": 2009,
+    "genre": "Sci-Fi",
+    "duration": 162
+  },
+  {
+    "id": 9,
+    "title": "인터스텔라",
+    "director": "크리스토퍼 놀란",
+    "releaseYear": 2014,
+    "genre": "Sci-Fi",
+    "duration": 169
+  },
+  {
+    "id": 10,
+    "title": "엣지 오브 투모로우",
+    "director": "더그 라이만",
+    "releaseYear": 2014,
+    "genre": "Action",
+    "duration": 113
+  },
+  {
+    "id": 11,
+    "title": "미션 임파서블: 데드 레코닝 PART ONE",
+    "director": "크리스토퍼 맥쿼리",
+    "releaseYear": 2023,
+    "genre": "Action",
+    "duration": 163
+  },
+  {
+    "id": 12,
+    "title": "탑건: 매버릭",
+    "director": "조셉 코신스키",
+    "releaseYear": 2022,
+    "genre": "Action",
+    "duration": 130
+  },
+  {
+    "id": 13,
+    "title": "위플래쉬",
+    "director": "데이미언 셔젤",
+    "releaseYear": 2015,
+    "genre": "Drama",
+    "duration": 106
+  },
+  {
+    "id": 14,
+    "title": "타이타닉!",
+    "director": "모름",
+    "releaseYear": 1997,
+    "genre": "Drama",
+    "duration": 200
+  }
+]
