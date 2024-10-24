@@ -1,7 +1,7 @@
 import { Movie } from "../model/movie";
-import type { MovieDTO } from "../dto/movie";
-import type { ReviewDTO } from "../dto/review";
-import type { Genre } from "../types/genre";
+import type { MovieDTO } from "../../dto/movie";
+import type { ReviewDTO } from "../../dto/review";
+import { Genre } from "../../../types/genre";
 
 describe("Movie", () => {
   const mockDate = new Date("2024-01-01");
@@ -11,7 +11,7 @@ describe("Movie", () => {
     title: "Inception",
     director: "Christopher Nolan",
     releaseYear: 2010,
-    genre: "Sci-Fi",
+    genre: Genre.SciFi,
     duration: 148,
   } as const;
 
@@ -55,7 +55,7 @@ describe("Movie", () => {
     });
 
     it("should throw error for invalid genre", () => {
-      const invalidDTO = { ...validMovieDTO, genre: "Invalid" };
+      const invalidDTO = { ...validMovieDTO, genre: "Invalid" as Genre };
       expect(() => new Movie(invalidDTO)).toThrow("Invalid genre");
     });
 
@@ -89,7 +89,7 @@ describe("Movie", () => {
         { ...validMovieDTO, title: "" },
         { ...validMovieDTO, director: "" },
         { ...validMovieDTO, releaseYear: undefined },
-        { ...validMovieDTO, genre: "" },
+        { ...validMovieDTO, genre: "" as Genre },
         { ...validMovieDTO, duration: undefined },
       ];
 
@@ -214,7 +214,7 @@ describe("Movie", () => {
 
     it("should throw error for invalid genre", () => {
       const movie = new Movie(validMovieDTO);
-      expect(() => movie.updateDetails({ genre: "Invalid" })).toThrow(
+      expect(() => movie.updateDetails({ genre: "Invalid" as Genre })).toThrow(
         "유효하지 않은 장르입니다"
       );
     });

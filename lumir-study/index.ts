@@ -1,15 +1,23 @@
-import { MovieReviewService } from "./src/core/service/movie-review.service";
+import { DatabaseManager, DBType } from "./src/db/db-manager";
 import { MovieDTO } from "./src/core/dto/movie";
 import { ReviewDTO } from "./src/core/dto/review";
-import { Genre } from "./src/core/types/genre";
+import { Genre } from "./src/types/genre";
+import { MovieReviewController } from "./src/core/controller/movie-review.controller";
+import { MovieReviewService } from "./src/core/service/movie-review.service";
 // import { Movie } from "./core/model/movie";
-import * as path from "path";
+// import * as path from "path";
 
-let movieReviewService: MovieReviewService;
+// MovieReviewController 인스턴스 생성
 
-async function initializeService() {
-  movieReviewService = new MovieReviewService();
-  await movieReviewService.initialize();
+const movieReviewController = MovieReviewController.getInstance();
+const dbManager = new DatabaseManager(
+  process.cwd(),
+  ["Movie", "Review"],
+  DBType.FILE
+);
+
+async function initialize() {
+  await movieReviewController.initialize();
   console.log("영화 리뷰 서비스가 초기화되었습니다.");
   promptUser();
 }
@@ -86,7 +94,7 @@ function addMovie() {
         duration: parsedDuration,
       };
 
-      movieReviewService.addMovie(movieDTO);
+      movieReviewController.addMovie(movieDTO);
       console.log("영화가 추가되었습니다.");
     } catch (error) {
       console.error("영화 추가 실패:", error.message, "\n");
@@ -95,10 +103,9 @@ function addMovie() {
     }
   });
 }
-
 function addReview() {
   console.log("리뷰 정보를 입력하세요 (영화ID,사용자ID,평점,코멘트): \n");
-  process.stdin.once("data", (input) => {
+  process.stdin.once("data", async (input) => {
     try {
       const [movieId, userId, rating, comment] = input
         .toString()
@@ -118,19 +125,21 @@ function addReview() {
         createdAt: new Date(),
       };
 
-      try {
-        movieReviewService.addReview(reviewDTO);
+      const response = await movieReviewController.addReview(reviewDTO);
+
+      if (response.success) {
         console.log("리뷰가 추가되었습니다. \n");
-      } catch (error) {
-        // console.error("리뷰 추가 중 오류 발생:", error.message, "\n");
-        throw error;
-      } finally {
-        promptUser();
+      } else {
+        console.error("리뷰 추가 실패:", response.error, "\n");
       }
     } catch (error) {
-      console.error("리뷰 추가 실패:", error.message, "\n");
+      console.error(
+        "리뷰 추가 실패:",
+        error instanceof Error ? error.message : "알 수 없는 오류",
+        "\n"
+      );
     } finally {
-      promptUser();
+      promptUser(); // 한 번만 호출
     }
   });
 }
@@ -140,7 +149,8 @@ function updateMovie() {
   process.stdin.once("data", (input) => {
     try {
       const movieId = parseInt(input.toString().trim());
-      const movieWithReviews = movieReviewService.getMovieWithReviews(movieId);
+      const movieWithReviews =
+        movieReviewController.getMovieWithReviews(movieId);
 
       if (!movieWithReviews) {
         throw new Error("해당 ID의 영화를 찾을 수 없습니다. \n");
@@ -164,7 +174,7 @@ function updateMovie() {
         if (duration) movieDTO.duration = parseInt(duration);
 
         try {
-          movieReviewService.updateMovie(movieId, movieDTO);
+          movieReviewController.updateMovie(movieId, movieDTO);
           console.log("영화 정보가 성공적으로 수정되었습니다. \n");
         } catch (error) {
           console.error("영화 정보 수정 실패:", error.message, "\n");
@@ -180,10 +190,10 @@ function updateMovie() {
 
 function getMovie() {
   console.log("조회할 영화 ID를 입력하세요: \n");
-  process.stdin.once("data", (movieIdInput) => {
+  process.stdin.once("data", async (movieIdInput) => {
     try {
       const movieId = parseInt(movieIdInput.toString().trim());
-      const movie = movieReviewService.getMovieWithReviews(movieId);
+      const movie = movieReviewController.getMovieWithReviews(movieId);
 
       console.log("1. 모든 리뷰 보기");
       console.log("2. 가장 인기 있는 리뷰 보기");
@@ -191,7 +201,7 @@ function getMovie() {
       console.log("3. 돌아가기");
       console.log("옵션을 선택하세요 (1 또는 2 또는 3): ");
 
-      process.stdin.once("data", (optionInput) => {
+      process.stdin.once("data", async (optionInput) => {
         const option = parseInt(optionInput.toString().trim());
 
         switch (option) {
@@ -199,13 +209,14 @@ function getMovie() {
             console.log(movie);
             break;
           case 2:
-            const topReview = movieReviewService.getMostLikedReview(movieId);
-            if (!topReview) {
-              console.log("리뷰가 없습니다. \n");
-            } else {
+            const topReviewResponse =
+              await movieReviewController.getMostLikedReview(movieId);
+            if (topReviewResponse.success && topReviewResponse.data) {
               console.log(
-                `가장 인기 있는 리뷰: ${topReview.comment} (좋아요: ${topReview.likes}) \n`
+                `가장 인기 있는 리뷰: ${topReviewResponse.data.comment} (좋아요: ${topReviewResponse.data.likes}) \n`
               );
+            } else {
+              console.log(topReviewResponse.error || "리뷰가 없습니다. \n");
             }
             break;
           case 3:
@@ -222,18 +233,30 @@ function getMovie() {
   });
 }
 
-function addLike() {
+// index.ts의 addLike 함수 수정
+async function addLike() {
   console.log("좋아요를 누를 영화ID와 리뷰 ID를 입력하세요: \n");
-  process.stdin.once("data", (input) => {
+  process.stdin.once("data", async (input) => {
     try {
       const [movieId, reviewId] = input.toString().trim().split(",");
-
       const parsedMovieId = parseInt(movieId);
 
-      movieReviewService.addLike(parsedMovieId, reviewId);
-      console.log("좋아요가 눌렸습니다. \n");
+      const response = await movieReviewController.addLike(
+        parsedMovieId,
+        reviewId
+      );
+
+      if (response.success) {
+        console.log("좋아요가 성공적으로 추가되었습니다. \n");
+      } else {
+        console.error("좋아요 추가 실패:", response.error, "\n");
+      }
     } catch (error) {
-      console.error("좋아요 추가 실패:", error.message, "\n");
+      console.error(
+        "좋아요 추가 실패:",
+        error instanceof Error ? error.message : "알 수 없는 오류",
+        "\n"
+      );
     } finally {
       promptUser();
     }
@@ -242,22 +265,22 @@ function addLike() {
 
 function searchMovies() {
   console.log("검색할 영화 제목 또는 감독을 입력하세요: \n");
-  process.stdin.once("data", (input) => {
+  process.stdin.once("data", async (input) => {
     const query = input.toString().trim();
-    const results = movieReviewService.searchMovies(query);
+    const results = await movieReviewController.searchMovies(query);
     console.log(results);
     promptUser();
   });
 }
 
-function getUserTopReviewers() {
+async function getUserTopReviewers() {
   console.log(
     "리뷰 수가 가장 많은 N명의 사용자를 보려면 숫자를 입력하세요: \n"
   );
-  process.stdin.once("data", (input) => {
+  process.stdin.once("data", async (input) => {
     const n = parseInt(input.toString().trim());
-    const topReviewers = movieReviewService.getUserTopReviewers(n);
-    if (topReviewers.length === 0) {
+    const topReviewers = await movieReviewController.getUserTopReviewers(n);
+    if (topReviewers.data.length === 0) {
       console.log("리뷰가 없습니다. \n");
     } else {
       console.log(topReviewers);
@@ -273,7 +296,7 @@ function recommendMovies() {
     const parsedUserId = parseInt(userId);
     const parsedCount = parseInt(count);
 
-    const recommendedMovies = movieReviewService.recommendMovies(
+    const recommendedMovies = movieReviewController.recommendMovies(
       parsedUserId,
       parsedCount
     );
@@ -290,7 +313,7 @@ function getTopRatedMovies() {
     console.log("최소 리뷰 수는 몇개인가요? \n");
     process.stdin.once("data", (input) => {
       const minReviews = parseInt(input.toString().trim());
-      const topRatedMovies = movieReviewService.getTopRatedMovies(
+      const topRatedMovies = movieReviewController.getTopRatedMovies(
         n,
         minReviews
       );
@@ -304,7 +327,7 @@ function updateReview() {
   console.log("수정할 리뷰 ID와 코멘트를 입력하세요: \n");
   process.stdin.once("data", (input) => {
     const [reviewId, comment] = input.toString().trim().split(",");
-    movieReviewService.updateReview(reviewId, comment);
+    movieReviewController.updateReview(reviewId, comment);
     console.log("리뷰가 수정되었습니다. \n");
     promptUser();
   });
@@ -317,14 +340,14 @@ function getMoviesByGenre() {
   );
   process.stdin.once("data", (input) => {
     const genre = input.toString().trim() as Genre;
-    const movies = movieReviewService.getMoviesByGenre(genre);
+    const movies = movieReviewController.getMoviesByGenre(genre);
     console.log(movies);
     promptUser();
   });
 }
 
 // 프로그램 시작
-initializeService().catch((error) => {
+initialize().catch((error) => {
   console.error("서비스 초기화 중 오류 발생:", error);
   process.exit(1);
 });

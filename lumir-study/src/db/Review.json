@@ -1,0 +1,155 @@
+[
+  {
+    "id": "R1",
+    "movieId": 1,
+    "userId": 1,
+    "rating": 5,
+    "comment": "오랜만에 띵작 나왔습니다...",
+    "likes": 0,
+    "createdAt": "2024-10-22T04:54:32.461Z"
+  },
+  {
+    "movieId": 1,
+    "userId": 3,
+    "rating": 5,
+    "comment": "전설의 시작",
+    "likes": 0,
+    "createdAt": "2024-10-22T06:12:46.165Z",
+    "id": "R4"
+  },
+  {
+    "movieId": 1,
+    "userId": 4,
+    "rating": 5,
+    "comment": "아이언맨을 안본 시절로 돌아가고 싶어서 다시 봄",
+    "likes": 0,
+    "createdAt": "2024-10-22T06:13:01.695Z",
+    "id": "R5"
+  },
+  {
+    "movieId": 2,
+    "userId": 1,
+    "rating": 5,
+    "comment": "전작을 잇는 수작... 강력 추천합니다.",
+    "likes": 0,
+    "createdAt": "2024-10-22T05:52:45.094Z",
+    "id": "R2"
+  },
+  {
+    "id": "R3",
+    "movieId": 2,
+    "userId": 3,
+    "rating": 2,
+    "comment": "어른이용 메카물",
+    "likes": 0,
+    "createdAt": "2024-10-22T05:54:03.309Z"
+  },
+  {
+    "id": "R6",
+    "movieId": 8,
+    "userId": 2,
+    "rating": 5,
+    "comment": "제임스 카메론은 다큐멘터리를 아주 생동감 넘치게 잘 찍는다.",
+    "likes": 1,
+    "createdAt": "2024-10-22T06:14:03.412Z"
+  },
+  {
+    "movieId": 13,
+    "userId": 1,
+    "rating": 5,
+    "comment": "미친 스승과 미친 제자의 미친 합주... 보는내내 긴장을 늦출 수 없었다.",
+    "likes": 0,
+    "createdAt": "2024-10-22T06:58:40.671Z",
+    "id": "R7"
+  },
+  {
+    "movieId": 14,
+    "userId": 1,
+    "rating": 5,
+    "comment": "타이타닉은 띵작",
+    "likes": 0,
+    "createdAt": "2024-10-22T07:16:45.723Z",
+    "id": "R8"
+  },
+  {
+    "id": "R9",
+    "movieId": 14,
+    "userId": 2,
+    "rating": 5,
+    "comment": "타이타닉 좋다",
+    "likes": 1,
+    "createdAt": "2024-10-22T07:18:27.776Z"
+  },
+  {
+    "movieId": 15,
+    "userId": 11,
+    "rating": 3,
+    "comment": "그럭저럭 볼 만한 영화....",
+    "likes": 0,
+    "createdAt": "2024-10-24T02:35:33.596Z",
+    "id": "R10"
+  },
+  {
+    "movieId": 15,
+    "userId": 10,
+    "rating": 3,
+    "comment": "그럭저럭 볼 만한 영화....",
+    "likes": 0,
+    "createdAt": "2024-10-24T02:39:38.360Z",
+    "id": "R11"
+  },
+  {
+    "movieId": 15,
+    "userId": 9,
+    "rating": 4,
+    "comment": "오펜하이머라는 인간의 고뇌가 담긴 영화",
+    "likes": 0,
+    "createdAt": "2024-10-24T03:54:09.195Z",
+    "id": "R12"
+  },
+  {
+    "id": "R13",
+    "movieId": 15,
+    "userId": 33,
+    "rating": 5,
+    "comment": "오펜하이머에 대해 알게 되었다... 그의 노고에 감사한다",
+    "likes": 1,
+    "createdAt": "2024-10-24T04:23:50.393Z"
+  },
+  {
+    "id": "R14",
+    "movieId": 15,
+    "userId": 39,
+    "rating": 5,
+    "comment": "전쟁은 비극이다... 그러나 호모 사피엔스는 전쟁을 원할것이다. 인간은 전쟁을 좋아하니까...",
+    "likes": 0,
+    "createdAt": "2024-10-24T04:24:20.282Z"
+  },
+  {
+    "id": "R15",
+    "movieId": 1,
+    "userId": 330,
+    "rating": 4,
+    "comment": "꿀잼. 오랜만에 액션 영화 좋네요",
+    "likes": 3,
+    "createdAt": "2024-10-24T04:58:24.571Z"
+  },
+  {
+    "movieId": 16,
+    "userId": 333,
+    "rating": 5,
+    "comment": "어바웃타임은 영화계의 명작이다. 이번에도 보면서 인생에 대해 고찰하는중...",
+    "likes": 0,
+    "createdAt": "2024-10-24T05:10:21.258Z",
+    "id": "R16"
+  },
+  {
+    "movieId": 16,
+    "userId": 334,
+    "rating": 5,
+    "comment": "언제봐도 감동이 가시지 않는 영화. 매 순간 후회없이 사는 것 만이 평범한 인간이 할 수 있는 최선의 방법이 아닐까.",
+    "likes": 0,
+    "createdAt": "2024-10-24T05:10:55.210Z",
+    "id": "R17"
+  }
+]

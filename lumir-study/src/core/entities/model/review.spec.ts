@@ -1,5 +1,5 @@
 import { Review } from "../model/review";
-import { ReviewDTO } from "../dto/review";
+import { ReviewDTO } from "../../dto/review";
 import { describe, expect, it } from "@jest/globals";
 
 describe("Review", () => {

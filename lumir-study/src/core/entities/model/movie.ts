@@ -1,13 +1,13 @@
-import { ReviewDTO } from "../dto/review";
-import { MovieDTO } from "../dto/movie";
-import { Genre } from "../types/genre";
+import { ReviewDTO } from "../../dto/review";
+import { MovieDTO } from "../../dto/movie";
+import { Genre } from "../../../types/genre";
 
 export class Movie implements MovieDTO {
   private _id: number;
   private _title: string;
   private _director: string;
   private _releaseYear: number;
-  private _genre: string;
+  private _genre: Genre;
   private _duration: number;
   private _reviews: ReviewDTO[] = [];
 
@@ -76,7 +76,7 @@ export class Movie implements MovieDTO {
   get releaseYear(): number {
     return this._releaseYear;
   }
-  get genre(): string {
+  get genre(): Genre {
     return this._genre;
   }
   get duration(): number {
@@ -87,7 +87,7 @@ export class Movie implements MovieDTO {
   }
 
   // ? 리뷰를 추가하는 메서드
-  addReview(reviewDTO: ReviewDTO) {
+  async addReview(reviewDTO: ReviewDTO) {
     // 평점이 1~5 사이의 값인지 확인합니다.
     if (reviewDTO.rating <= 0 || reviewDTO.rating > 5) {
       throw new Error("Rating must be between 1 and 5");

@@ -1,4 +1,4 @@
-import { ReviewDTO } from "../dto/review";
+import { ReviewDTO } from "../../dto/review";
 
 export class Review implements ReviewDTO {
   private _id: string;
@@ -24,6 +24,7 @@ export class Review implements ReviewDTO {
     }
     this._comment = reviewDTO.comment;
     this._createdAt = reviewDTO.createdAt;
+    this._likes = reviewDTO.likes;
   }
 
   static validateReviewDTO(reviewDTO: ReviewDTO): boolean {
