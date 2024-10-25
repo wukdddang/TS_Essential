@@ -105,11 +105,11 @@
   },
   {
     "id": 14,
-    "title": "타이타닉!",
-    "director": "모름",
+    "title": "타이타닉",
+    "director": "제임스 카메론",
     "releaseYear": 1997,
     "genre": "Drama",
-    "duration": 200
+    "duration": 194
   },
   {
     "id": 15,
@@ -126,5 +126,13 @@
     "genre": "Drama",
     "duration": 123,
     "id": 16
+  },
+  {
+    "title": "베놈: 라스트 댄스",
+    "director": "켈리 마르셀",
+    "releaseYear": 2024,
+    "genre": "Action",
+    "duration": 109,
+    "id": 17
   }
 ]

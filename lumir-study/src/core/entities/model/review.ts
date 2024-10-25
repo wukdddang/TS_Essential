@@ -27,7 +27,7 @@ export class Review implements ReviewDTO {
     this._likes = reviewDTO.likes;
   }
 
-  static validateReviewDTO(reviewDTO: ReviewDTO): boolean {
+  static validateReviewDTO(reviewDTO: Omit<ReviewDTO, "id">): boolean {
     if (!reviewDTO.movieId || !reviewDTO.userId || !reviewDTO.comment) {
       return false;
     }

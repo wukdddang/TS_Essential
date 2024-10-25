@@ -49,14 +49,14 @@ export class Movie implements MovieDTO {
     return ["Action", "Comedy", "Drama", "Sci-Fi", "Horror"].includes(genre);
   }
 
-  static validateMovieDTO(movieDTO: MovieDTO): boolean {
+  static validateMovieDTO(movieDTO: Omit<MovieDTO, "id">): boolean {
     if (
       !movieDTO.title ||
       !movieDTO.director ||
       !movieDTO.releaseYear ||
       !movieDTO.genre ||
       !movieDTO.duration ||
-      !this.isValidGenre(movieDTO.genre)
+      !Movie.isValidGenre(movieDTO.genre)
     ) {
       return false;
     }
